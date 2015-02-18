@@ -30,7 +30,8 @@ mkdir /mnt/initrd/proc
 
 # Grab busybox and create the symbolic links
 pushd /mnt/initrd/bin
-cp /usr/local/src/busybox-1.1.1/busybox .
+busyBoxPath=`which busybox`
+cp $busyBoxPath .
 ln -s busybox ash
 ln -s busybox mount
 ln -s busybox echo
@@ -67,6 +68,7 @@ EOF
 chmod +x /mnt/initrd/linuxrc
 
 # Finish up...
+sleep 1
 umount /mnt/initrd
 gzip -9 /tmp/ramdisk.img
 cp /tmp/ramdisk.img.gz /boot/ramdisk.img.gz
